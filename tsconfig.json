@@ -37,14 +37,14 @@
     "esModuleInterop": true, // Habilitar la interoperabilidad con módulos ES
     "forceConsistentCasingInFileNames": true, // Forzar nombres de archivo consistentes
     "inlineSourceMap": true, // Incrustar mapas de origen en el código transpilado (producción)
-    "module": "commonjs", // Usar el módulo CommonJS para el desarrollo de Node.js
+    "module": "commonjs", // módulo nativo de Node.js, configuramos como se transpilara el codigo para exportar e importar los modulos en javascript
     "outDir": "./build", // Especificar la carpeta de salida para el código transpilado
     "removeComments": true, // Eliminar comentarios del código transpilado (producción)
     "resolveJsonModule": true, // Resolver módulos JSON
     "rootDir": "./src", //el compilador TypeScript usará esta carpeta como punto de referencia al resolver rutas de archivo en las propiedades include y exclude
     "skipLibCheck": true, // Omitir la verificación de la biblioteca de tipos
     "strict": true, // Habilitar el modo estricto de TypeScript
-    "target": "es2020", // Establecer el objetivo de JavaScript a ES2020
+    "target": "es2020", // version d JavaScript ES2020(ecma script), a q version d javascript se transpilara el codigo
     "noEmitOnError": false, //genera código JavaScript incluso con errores, lo que te facilitará la depuración de los errores.
     "noImplicitAny": true, // se utiliza para hacer que el compilador emita un error cuando no puede inferir el tipo de una variable. P
     "sourceMap": true, //útil p/la depuración, y/q permite v/l código TypeScript original cuando c produce un error nl código JavaScript.
