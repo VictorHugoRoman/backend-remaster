@@ -9,7 +9,6 @@
     "start-js": "node build/index.js",
     "start-dev": "tsc && nodemon --exec ts-node index.ts",
     "build": "tsc",
-
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -21,6 +20,7 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
     "express-queue": "^0.0.13",
     "express-winston": "^4.2.0",
     "helmet": "^7.1.0",

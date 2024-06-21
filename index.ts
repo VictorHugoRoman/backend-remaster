@@ -1,12 +1,13 @@
-import express, { Request, Response } from 'express';
+import Server from 'src/startup';
+import container from './src/startup/container';
+import mongoose  from 'mongoose';
+import express from 'express';
 
-const app = express();
-const port = 3000;
+const server = container.resolve<Server>('app');
+const { MONGO_URI } = container.resolve("config");
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello from Express witdasdasd sadassddsdsdsdsdd !');
-});
-
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+mongoose.connect(MONGO_URI)
+    .then(() => { 
+        server.Start(); 
+    })
+    .catch(console.log); //si promesa coneccion mongo falla, le dejamos la responsabilidad al catch de ejecutar el console.log
