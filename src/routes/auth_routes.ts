@@ -1,10 +1,9 @@
-import { Router } from 'express'; 
-import {authController} from '../controllers/index'
+import { Router } from "express";
+import { AuthController } from "../controllers/index";
 
-
-export default function (authController:authController): Router {
-    const router = Router();
-    router.post("/signup", authController.signUp);
-    router.post("/signin", authController.signIn);
-    return router;
+export default function (authController: AuthController): Router {
+  const router = Router();
+  router.post("/signup", authController.signUp);
+  router.post("/signin", authController.signIn);
+  return router;
 }

@@ -1,2 +1,2 @@
-export { default as homeService } from './home_service';
-export { default as userService } from './user_service';
+export { default as HomeService } from './home_service';
+export { default as UserService } from './user_service';

@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import { Config } from "../config/index";
+import { loggerWinston } from "../middlewares";
 
 export default class Server {
   private _express: Express;
@@ -7,10 +8,10 @@ export default class Server {
 
   constructor(config: Config, router: express.Router) {
     this._config = config;
-    this._express = express().use(router);
+    this._express = express().use(loggerWinston).use(router);
   }
 
-  Start(): Promise<void> {
+  start(): Promise<void> {
     return new Promise<void>((resolve) => {
       if (this._express && this._config) {
         this._express.listen(this._config.PORT, () => {

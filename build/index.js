@@ -3,13 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const app = (0, express_1.default)();
-const port = 3000;
-app.get('/', (req, res) => {
-    res.send('Hello from Express witdc !');
-});
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
-});
+const container_1 = __importDefault(require("./src/startup/container"));
+const mongoose_1 = __importDefault(require("mongoose"));
+const server = container_1.default.resolve('app');
+const { MONGO_URI } = container_1.default.resolve("config");
+mongoose_1.default.connect(MONGO_URI)
+    .then(() => server.start())
+    .catch(console.log);
 //# sourceMappingURL=index.js.map

@@ -1,2 +1,2 @@
-export { default as authRepository } from './auth_repository';
-export { default as userRepository } from './user_repository';
+export { default as AuthRepository } from './auth_repository';
+export { UserRepository } from './user_repository';

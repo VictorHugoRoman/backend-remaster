@@ -1,23 +1,25 @@
-import { authRepository } from "src/repositories";
-import { Request, Response } from 'express'
+import { AuthRepository } from "src/repositories";
+import { Request, Response } from "express";
 import { IUser } from "src/models/user_model";
 
 export default class AuthController {
-    private readonly _authRep: authRepository;
-    
-    constructor(authRep: authRepository ) {
-        this._authRep = authRep;
-    }
+  constructor(private readonly authRepository: AuthRepository) {}
 
-    async signUp(req: Request, res: Response): Promise<void> {
-        const  body = req.body as IUser; 
-        const createdUser = await this._authRep.signUp(body);
-        res.status(201).send(createdUser);
-    }
-    
-    async signIn(req: Request, res: Response): Promise<void> {
-        const { body } = req; 
-        const creds = await this._authRep.signIn(body);
-        res.send(creds);
-    }
+  signUp = async (
+    req: Request<any, any, IUser>,
+    res: Response
+  ): Promise<void> => {
+    const body = req.body;
+    const createdUser = await this.authRepository.signUp(body);
+    res.status(201).send(createdUser);
+  };
+
+  signIn = async (
+    req: Request<any, any, IUser>,
+    res: Response
+  ): Promise<void> => {
+    const { body } = req;
+    const creds = await this.authRepository.signIn(body);
+    res.send(creds);
+  };
 }

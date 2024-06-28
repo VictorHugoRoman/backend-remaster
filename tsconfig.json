@@ -27,8 +27,12 @@
     // }
   }, 
   //"typeAcquisition": {"node": "16"}, // Especificar la versión de Node.js para la adquisición de tipos
-  "typeRoots": ["node_modules/@types"],
-  "types": ["node"]
+  "include": [
+    "./**/*.ts",
+    "src/d.types/*.d.ts"
+  ],
+  "typeRoots": ["node_modules/@types", "./src"],
+  "types": ["node", "express"]
 }
 
 /*

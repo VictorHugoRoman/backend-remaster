@@ -1,17 +1,16 @@
-import { IUserSchema } from "src/models/user_model";
-import { IUserRepository } from "./types";
+import { UserDocument } from "src/models/user_model";
 import BaseRepository from "./base_repository";
-import { userService } from "../services/index";
+import { UserService } from "../services/index";
+import { IUserRepository } from "./types";
 
-export default class UserRepository extends BaseRepository<IUserSchema> implements IUserRepository{
-  private readonly us: userService;
-
-  constructor(service: userService) {
-    super(service);
-    this.us = service;
+class UserRepository extends BaseRepository implements IUserRepository{
+  constructor(private readonly userService: UserService) {
+    super(userService);
   }
 
-  async getUserByUserName(userName: string): Promise<IUserSchema|null> {
-    return await this.us.getUserByUserName(userName);
+  async getUserByUserName(userName: string): Promise<UserDocument | null> {
+    return await this.userService.getUserByUserName(userName);
   }
 }
+
+export { UserRepository };

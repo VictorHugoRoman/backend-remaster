@@ -1,17 +1,13 @@
-import { Model } from "mongoose";
-import { IUserSchema } from "../models/user_model";
+import { UserDocument, UserModel } from "../models/user_model";
 import BaseService from "./base_service";
 
-export default class UserService extends BaseService<IUserSchema> {
-  private readonly _user: Model<IUserSchema>;
-  
-  constructor(UserSchema: Model<IUserSchema>) {
-    super(UserSchema);
-    this._user = UserSchema;
+export default class UserService extends BaseService {
+  constructor(private readonly userModel: UserModel) {
+    super(userModel);
   }
 
-  getUserByUserName(userName: string): Promise<IUserSchema | null> {
-    const data = this._user.findOne({ name: userName }).exec();
+  async getUserByUserName(userName: string): Promise<UserDocument | null> {
+    const data = await this.userModel.findOne<UserDocument>({ name: userName }).exec();
     return data;
   }
 }

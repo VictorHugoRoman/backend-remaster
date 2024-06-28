@@ -1,38 +1,35 @@
-import BaseService from '../services/base_service';
-import { HttpError } from '../common/http_error';
-import { HttpStatus } from '../common/http_status';
-import { ICRUDRepository } from '../common/types';
+import BaseService from "../services/base_service";
+import { HttpError } from "../common/http_error";
+import { HttpStatus } from "../common/http_status";
+import { IBaseRepository } from "../common/types";
 
-export default abstract class BaseRepository<T> implements ICRUDRepository{
-  private readonly bs: BaseService<T>;
+export default abstract class BaseRepository {
+  constructor(private readonly service: BaseService) {}
 
-  constructor(service: BaseService<T>) {
-    this.bs = service;
-  }
-
-  async getById(id: string) {
+  async getById(id: string): Promise<any> {
     if (!id) throw new HttpError("id must be sent", HttpStatus.BAD_REQUEST);
-    const currentEntity = await this.bs.getById(id);
-    if (!currentEntity) throw new HttpError("entity does not found", HttpStatus.NOT_FOUND);
+    const currentEntity = await this.service.getById(id);
+    if (!currentEntity)
+      throw new HttpError("entity does not found", HttpStatus.NOT_FOUND);
     return currentEntity;
   }
 
   async getAllPaginate(pageSize: number, pageNum: number) {
-    return await this.bs.getAllPaginate(pageSize, pageNum);
+    return await this.service.getAllPaginate(pageSize, pageNum);
   }
 
   async createEntity(entity: any) {
-    return await this.bs.createEntity(entity);
+    return await this.service.createEntity(entity);
   }
 
-  async updateEntity(id: string, entity: Partial<T>) {
+  async updateEntity(id: string, entity: Partial<any>) {
     if (!id) throw new HttpError("id must be sent", HttpStatus.BAD_REQUEST);
-    return await this.bs.updateEntity(id, entity);
+    return await this.service.updateEntity(id, entity);
   }
 
   async deleteById(id: string) {
     if (!id) throw new HttpError("id must be sent", HttpStatus.BAD_REQUEST);
-    
-    return await this.bs.deleteById(id);
+
+    return await this.service.deleteById(id);
   }
 }

@@ -1,32 +1,29 @@
-import { Model } from "mongoose";
+import { Model, Document } from "mongoose";
 
-export default abstract class BaseService<T> 
-{
-  private _sch: Model<T>;
+export default abstract class BaseService {
+  constructor(private model: Model<any>) {}
 
-  constructor(schema: Model<T>) {
-    this._sch = schema;
-  }
-
-  async getById(id: string) {    
-    return await this._sch.findById(id);
+  async getById(id: string) {
+    const res = await this.model.findById(id);
+    console.log("service ", res);
+    return res;
   }
 
   async getAllPaginate(pageSize = 5, pageNum = 1) {
     const skips = pageSize * (pageNum - 1);
-    return await this._sch.find().skip(skips).limit(pageSize);
+    return await this.model.find().skip(skips).limit(pageSize);
   }
 
   async createEntity(entity: any) {
-    return await this._sch.create(entity);
+    return await this.model.create(entity);
   }
 
-  async updateEntity(id: string, entity: Partial<T>) {
-    return await this._sch.findByIdAndUpdate(id, entity, { new: true });
+  async updateEntity(id: string, entity: Partial<any>) {
+    return await this.model.findByIdAndUpdate(id, entity, { new: true });
   }
 
   async deleteById(id: string) {
-    await this._sch.findByIdAndDelete(id);
+    await this.model.findByIdAndDelete(id);
     return true;
   }
 }
