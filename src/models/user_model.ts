@@ -5,6 +5,7 @@ export interface IUser {
   name: string;
   username: string;
   password: string;
+  _id: Types.ObjectId;
 }
 
 export interface IUserMethods {
@@ -21,19 +22,22 @@ const userSchema = new Schema<UserDocument, UserModel>({
   password: { type: String, required: true },
 });
 
+//c ejecuta en automatico al obtener un documento
 userSchema.methods.toJSON = function () {
   let user = this.toObject();
   delete user.password;
   return user;
 };
 
-userSchema.method('comparePasswords', async function(password: string) {
+
+userSchema.method('comparePasswords', function(this: IUser, password: string): boolean {
   return compareSync(password, this.password);
 });
 
 
 userSchema.pre("save", async function (next) {
   const user = this;
+  console.log("presave ", user);
   if (!user.isModified) return next();
   const salt = genSaltSync(10);
   const hashedPassword = hashSync(user.password, salt);
@@ -42,9 +46,9 @@ userSchema.pre("save", async function (next) {
 });
 
 // Aplicar el middleware a las operaciones relevantes
-userSchema.pre('findOne', validateObjectId);
-userSchema.pre('findOneAndUpdate', validateObjectId);
-userSchema.pre('findOneAndDelete', validateObjectId);
+// userSchema.pre('findOne', validateObjectId);
+// userSchema.pre('findOneAndUpdate', validateObjectId);
+// userSchema.pre('findOneAndDelete', validateObjectId);
 
 
 function validateObjectId(this: Query<any, any>, next: CallbackWithoutResultAndOptionalError) {
@@ -56,4 +60,5 @@ function validateObjectId(this: Query<any, any>, next: CallbackWithoutResultAndO
 }
 
 const User = model<UserDocument, UserModel>('User', userSchema);
+
 export default User;

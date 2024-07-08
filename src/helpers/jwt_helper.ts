@@ -1,8 +1,8 @@
 import { sign } from 'jsonwebtoken';
 import config  from '../config';
-import { IUser } from 'src/models/user_model';
+import { IUserToEncode } from '../repositories/types';
 
 
-export function generateToken(user: IUser): string {
-  return sign({ user }, config.JWT_SECRET ?? '', { expiresIn: '4h' });
+export function generateToken(user: IUserToEncode): string {
+  return sign({ user }, config.JWT_SECRET, { expiresIn: '60' }); //'4h';
 }

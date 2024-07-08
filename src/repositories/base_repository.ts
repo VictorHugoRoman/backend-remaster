@@ -1,12 +1,12 @@
 import BaseService from "../services/base_service";
 import { HttpError } from "../common/http_error";
 import { HttpStatus } from "../common/http_status";
-import { IBaseRepository } from "../common/types";
+import { IBaseRepository } from "./types";
 
-export default abstract class BaseRepository {
-  constructor(private readonly service: BaseService) {}
+export default abstract class BaseRepository<T> implements IBaseRepository {
+  constructor(private readonly service: BaseService<T>) {}
 
-  async getById(id: string): Promise<any> {
+  async getById(id: string): Promise<T | null> {
     if (!id) throw new HttpError("id must be sent", HttpStatus.BAD_REQUEST);
     const currentEntity = await this.service.getById(id);
     if (!currentEntity)

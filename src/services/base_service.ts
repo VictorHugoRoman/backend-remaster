@@ -1,17 +1,18 @@
-import { Model, Document } from "mongoose";
+import { Model } from "mongoose";
 
-export default abstract class BaseService {
-  constructor(private model: Model<any>) {}
+export default abstract class BaseService<T> {
+  constructor(private model: Model<T>) {}
 
-  async getById(id: string) {
-    const res = await this.model.findById(id);
+  async getById(id: string): Promise<T | null> {
+    const query = await this.model.findById<T>(id).exec();
+    const res = query == null ? null : query as T;
     console.log("service ", res);
     return res;
   }
 
-  async getAllPaginate(pageSize = 5, pageNum = 1) {
+  async getAllPaginate(pageSize = 5, pageNum = 1): Promise<T[]> {
     const skips = pageSize * (pageNum - 1);
-    return await this.model.find().skip(skips).limit(pageSize);
+    return await this.model.find().skip(skips).limit(pageSize).exec();
   }
 
   async createEntity(entity: any) {

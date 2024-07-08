@@ -8,15 +8,14 @@ import {
 } from "awilix";
 import { UserModel } from "../models";
 import { AuthRoutes, UserRoutes } from "../routes/index.routes";
-import { AuthController as AuthController, UserController } from "../controllers";
+import { AuthController, UserController } from "../controllers";
 import { AuthRepository, UserRepository } from "../repositories";
 import { UserService } from "../services";
+import { IAuthRepository, IUserRepository } from "src/repositories/types";
+import { default as server } from ".";
 import endpoints from "../routes";
 import config from "../config";
-import { default as server } from ".";
 import express from "express";
-import { IUserRepository } from "src/repositories/types";
-import BaseService from "../services/base_service";
 
 const container: AwilixContainer = createContainer({
   injectionMode: InjectionMode.CLASSIC,
@@ -40,7 +39,7 @@ container.register({
 
 //## injection repositories
 container.register({
-  authRepository: asClass(AuthRepository).singleton(),
+  authRepository: asClass<IAuthRepository>(AuthRepository).singleton(),
   userRepository: asClass<IUserRepository>(UserRepository).singleton()
 });
 
