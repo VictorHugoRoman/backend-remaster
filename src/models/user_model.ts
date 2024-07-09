@@ -1,19 +1,17 @@
 import { Model, Schema, model, Document, Query, Types, CallbackWithoutResultAndOptionalError } from 'mongoose';
 import { compareSync, hashSync, genSaltSync } from "bcryptjs";
+import { USER } from './name_models';
 
-export interface IUser {
+export type IUser = {
   name: string;
   username: string;
   password: string;
   _id: Types.ObjectId;
 }
-
 export interface IUserMethods {
   comparePasswords(candidatePassword: string): Promise<boolean>;
 }
-
 export type UserDocument = Document & IUser & IUserMethods;
-
 export type UserModel = Model<UserDocument>;
 
 const userSchema = new Schema<UserDocument, UserModel>({
@@ -59,6 +57,4 @@ function validateObjectId(this: Query<any, any>, next: CallbackWithoutResultAndO
   }
 }
 
-const User = model<UserDocument, UserModel>('User', userSchema);
-
-export default User;
+export default model<UserDocument, UserModel>(USER, userSchema);
