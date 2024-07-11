@@ -1,9 +1,7 @@
-import { IUser } from "src/models/user_model";
-
-export interface IBaseRepository {
-  getById(id: string): Promise<any>;
-  getAllPaginate(pageSize: number, pageNum: number): Promise<any[]>;
-  createEntity(entity: any): Promise<any>;
-  updateEntity(id: string, entity: IUser): Promise<any>;
+export interface IBaseRepository<T> {
+  getById(id: string): Promise<T | null>;
+  getAllPaginate(pageSize: number, pageNum: number): Promise<T[]>;
+  createEntity(entity: T): Promise<T>;
+  updateEntity(id: string, entity: T  ): Promise<T | null>;
   deleteById(userName: string): Promise<boolean>;
 }

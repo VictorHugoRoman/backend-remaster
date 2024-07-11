@@ -3,7 +3,7 @@ import { HttpError } from "../common/http_error";
 import { HttpStatus } from "../common/http_status";
 import { IBaseRepository } from "./types";
 
-export default abstract class BaseRepository<T> implements IBaseRepository {
+export default abstract class BaseRepository<T> implements IBaseRepository<T> {
   constructor(private readonly service: BaseService<T>) {}
 
   async getById(id: string): Promise<T | null> {
@@ -18,11 +18,11 @@ export default abstract class BaseRepository<T> implements IBaseRepository {
     return await this.service.getAllPaginate(pageSize, pageNum);
   }
 
-  async createEntity(entity: any) {
+  async createEntity(entity: T) {
     return await this.service.createEntity(entity);
   }
 
-  async updateEntity(id: string, entity: Partial<any>) {
+  async updateEntity(id: string, entity: Partial<T>) {
     if (!id) throw new HttpError("id must be sent", HttpStatus.BAD_REQUEST);
     return await this.service.updateEntity(id, entity);
   }

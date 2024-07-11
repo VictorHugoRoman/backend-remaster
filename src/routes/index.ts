@@ -11,15 +11,20 @@ import "express-async-errors";
 //const {SWAGGER_PATH} = require('../Config');//obtenemos la ruta del documento d config de swagger
 //const swaggerDocument = require(SWAGGER_PATH);//obtenemos l documento
 
-export default function (authRoutes: Router, userRoutes: Router) {
+export default function (
+  authRoutes: Router,
+  userRoutes: Router,
+  commentRoutes: Router,
+  ideaRoutes: Router
+) {
   const router: Router = express.Router();
   const apiRoutes: Router = express.Router(); //variable para los middlewares
 
   apiRoutes.use(express.json()).use(cors()).use(helmet()).use(compression());
 
   //apiRoutes.use("/home", HomeRoutes);
-  //apiRoutes.use("/idea", IdeaRoutes);
-  //apiRoutes.use("/comment", CommentRoutes);
+  apiRoutes.use("/idea", ideaRoutes);
+  apiRoutes.use("/comment", commentRoutes);
   apiRoutes.use("/user", userRoutes);
   apiRoutes.use("/auth", authRoutes);
 
@@ -31,9 +36,8 @@ export default function (authRoutes: Router, userRoutes: Router) {
 
   //router.use("/api-docs/", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-  
   router.use(notFoundMiddleware);
   router.use(errorMiddleware);
-  
+
   return router;
 }

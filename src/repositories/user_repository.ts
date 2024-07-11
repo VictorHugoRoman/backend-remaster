@@ -1,9 +1,9 @@
-import { UserDocument } from "src/models/user_model";
+import { UserDocument } from "../models";
 import BaseRepository from "./base_repository";
-import { UserService } from "../services/index";
+import { UserService } from "../services";
 import { IUserRepository } from "./types";
 
-class UserRepository extends BaseRepository<UserDocument> implements IUserRepository {
+class UserRepository extends BaseRepository<UserDocument> implements IUserRepository<UserDocument> {
   constructor(private readonly userService: UserService) {
     super(userService);
   }

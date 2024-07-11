@@ -1,8 +1,8 @@
 import { Model, Schema, model, Document } from 'mongoose';
 import { IUser } from './user_model';
-import { IComment } from './comments.model';
-import populate from 'mongoose-autopopulate';
+import { IComment } from './comments_model';
 import { IDEA } from './name_models';
+import populate from 'mongoose-autopopulate';
 
 export type IIdea = {
     idea: string;

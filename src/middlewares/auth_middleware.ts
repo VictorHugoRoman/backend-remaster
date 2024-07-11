@@ -4,7 +4,7 @@ import config from "../config";
 import { HttpError, HttpStatus } from '../common';
 import { IUser } from "../models/user_model";
 
-interface JwtPayload {
+type JwtPayload = {
   user: IUser;
 }
 

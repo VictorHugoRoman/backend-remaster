@@ -1,7 +1,7 @@
-import {Model, Schema, Types, model} from 'mongoose'
+import {Model, Schema, Types, Document, model} from 'mongoose'
 import { IUser } from './user_model';
 import populate from 'mongoose-autopopulate';
-import { COMMENTS } from './name_models';
+import { COMMENTS as COMMENT } from './name_models';
 
 export type IComment = 
 {
@@ -26,4 +26,4 @@ const commentSchema = new Schema<CommentDocument, CommentModel>({
 
 commentSchema.plugin(populate);
 
-export default model<CommentDocument, CommentModel>(COMMENTS, commentSchema);
+export default model<CommentDocument, CommentModel>(COMMENT, commentSchema);

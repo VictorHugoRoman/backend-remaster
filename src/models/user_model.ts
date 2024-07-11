@@ -3,10 +3,10 @@ import { compareSync, hashSync, genSaltSync } from "bcryptjs";
 import { USER } from './name_models';
 
 export type IUser = {
+  _id: Types.ObjectId;
   name: string;
   username: string;
   password: string;
-  _id: Types.ObjectId;
 }
 export interface IUserMethods {
   comparePasswords(candidatePassword: string): Promise<boolean>;
