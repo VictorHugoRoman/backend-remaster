@@ -1,4 +1,4 @@
-import { CommentDocument, IComment, IdeaDocument  } from "../../models";
+import { IComment, IdeaDocument  } from "../../models";
 import { IBaseRepository } from "./";
 
 export interface ICommentRepository<T> extends IBaseRepository<T> {

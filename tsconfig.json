@@ -8,18 +8,24 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
+    "moduleResolution": "node",
     "noEmitOnError": false,
     "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "./build",
     "removeComments": true,
     "resolveJsonModule": true,
     "rootDir": "./",
     "skipLibCheck": true,
     "sourceMap": true,
-    "strictBindCallApply": false,
     "strict": true,
+    "strictBindCallApply": false,
+    "strictPropertyInitialization": false,
     "strictNullChecks": true,
-    "target": "es2020",
+    "target": "es2017",
+    "lib": ["es2017","dom"],
+    "typeRoots": ["./node_modules/@types", "./src/d.types"],
     //"inlineSourceMap": true,
     // "paths": {  alias para módulos o rutas de archivos. se importaran con los nombres @libs y @database
     //   "@libs/*": ["src/libs/*"],
@@ -27,12 +33,9 @@
     // }
   }, 
   //"typeAcquisition": {"node": "16"}, // Especificar la versión de Node.js para la adquisición de tipos
-  "include": [
-    "./**/*.ts",
-    "src/d.types/*.d.ts"
-  ],
-  "typeRoots": ["node_modules/@types", "./src"],
-  "types": ["node", "express"]
+  "include": ["./**/*.ts","src/d.types/*.d.ts"],
+  //"exclude": ["node_modules","dist"],
+  "types": ["node", "express", "jest"]
 }
 
 /*

@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 
 export default function (
-  req: Request,
+  _: Request,
   res: Response,
-  next: NextFunction
+  __: NextFunction
 ): void {
   res.status(404).send({ status: 404, message: "Resource not found" });
 }

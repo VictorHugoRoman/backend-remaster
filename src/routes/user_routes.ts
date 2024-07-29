@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import { authMiddleware, cachemiddleware } from "../middlewares";
 import { UserController } from "../controllers";
 import { cacheTime } from "../helpers";

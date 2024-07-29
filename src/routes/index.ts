@@ -20,7 +20,11 @@ export default function (
   const router: Router = express.Router();
   const apiRoutes: Router = express.Router(); //variable para los middlewares
 
-  apiRoutes.use(express.json()).use(cors()).use(helmet()).use(compression());
+  //apiRoutes.use(express.urlencoded({ extended: true })); Middleware to handle form data
+  apiRoutes.use(express.json())
+    .use(cors())
+    .use(helmet())
+    .use(compression());
 
   //apiRoutes.use("/home", HomeRoutes);
   apiRoutes.use("/idea", ideaRoutes);

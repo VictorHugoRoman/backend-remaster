@@ -15,6 +15,8 @@ export class AuthRepository implements IAuthRepository {
 
   async signIn(user: IUser): Promise<ISignIn> {
     const { username, password } = user;
+    if(password == undefined)
+      throw new HttpError("password undefinded", HttpStatus.BAD_REQUEST);
     const userExist = await this.userRepository.getByUserName(username);
     if (!userExist)
       throw new HttpError("user does not exists", HttpStatus.NOT_FOUND);

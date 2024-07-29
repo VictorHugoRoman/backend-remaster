@@ -10,7 +10,7 @@ type JwtPayload = {
 
 //cada que usemos este middleware le agregamos el usuario(IUser) al request para qst disponible al siguiente middleware
 
-export default (req: Request, res: Response, next: NextFunction): void => {
+export default (req: Request, _: Response, next: NextFunction): void => {
   const token = req.headers["authorization"]; 
   if (!token) throw new HttpError("Token must be sent", HttpStatus.UNAUTHORIZED, "authmiddleware");// return res.send("Token must be sent").status(HttpStatus.BAD_REQUEST); //forma de retornar un bad request sin throw new HttpError
   jwt.verify(token, config.JWT_SECRET, function (error, decodeToken) {

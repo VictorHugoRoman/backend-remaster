@@ -1,4 +1,4 @@
-import { IUser, UserDocument } from "../../models/user_model";
+import { UserDocument } from "../../models/user_model";
 import { IBaseRepository } from "./base_repository_types";
 
 export type ISignIn = {

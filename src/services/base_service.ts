@@ -14,15 +14,15 @@ export default abstract class BaseService<T> {
     return await this.model.find<T>().skip(skips).limit(pageSize).exec();
   }
 
-  async createEntity(entity: T) {
+  async createEntity(entity: T): Promise<T> {
     return await this.model.create<T>(entity);
   }
 
-  async updateEntity(id: string, entity: Partial<any>) {
+  async updateEntity(id: string, entity: Partial<any>): Promise<T | null> {
     return await this.model.findByIdAndUpdate<T>(id, entity, { new: true });
   }
 
-  async deleteById(id: string) {
+  async deleteById(id: string): Promise<boolean> {
     await this.model.findByIdAndDelete<T>(id);
     return true;
   }

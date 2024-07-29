@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { CommentDocument, IUser } from "src/models";
+import { CommentDocument } from "src/models";
 import BaseController from "./base_controller";
 import { CommentRepository } from "../repositories";
 import { RPBCustom, RPCustom } from "./types/index";

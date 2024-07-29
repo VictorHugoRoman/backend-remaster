@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 
 export default function (
   err: any,
-  req: Request,
+  _: Request,
   res: Response,
-  next: NextFunction
+  __: NextFunction
 ): Response {
   const httpStatus = err.status || 500;
   return res

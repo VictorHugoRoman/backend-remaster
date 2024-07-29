@@ -14,7 +14,7 @@ export default abstract class BaseRepository<T> implements IBaseRepository<T> {
     return currentEntity;
   }
 
-  async getAllPaginate(pageSize: number, pageNum: number) {
+  async getAllPaginate(pageSize: number = 5, pageNum: number = 1) {
     return await this.service.getAllPaginate(pageSize, pageNum);
   }
 

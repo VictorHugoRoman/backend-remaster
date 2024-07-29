@@ -11,10 +11,10 @@ export default expressWinston.logger({
   expressFormat: false,
   colorize: true,
   msg: "HTTP {{req.method}} {{req.url}} StatusCode {{res.statusCode}} Message: {{res.statusMessage}} Time {{res.responseTime}}ms",
-  ignoreRoute: function (req, res) {
+  ignoreRoute: function (_, __) {
     return false;
   },
-  dynamicMeta: (req, res, err) => {
+  dynamicMeta: (req, _, err) => {
     return {
       method: req.method,
       url: req.url,
