@@ -1,7 +1,7 @@
 
-import { UserRepository } from "../../../src/repositories";
-import { UserModelMock, UserServiceMock } from '../../mocks';
-import UserService from "src/services/user_service";
+import { UserRepository } from "@repositories/user_repository";
+import UserService from "@services/user_service";
+import { UserModelMock, UserServiceMock } from "../../mocks";
 let { user, users } = UserModelMock;
 
 describe("User Repository Tests", () => {

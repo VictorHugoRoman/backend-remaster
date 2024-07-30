@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 
 if (process.env.NODE_ENV !== 'production') dotenv.config();
 
-export interface Config {
+export type Config = {
   PORT: string;
   MONGO_URI: string;
   APPLICATION_NAME: string;

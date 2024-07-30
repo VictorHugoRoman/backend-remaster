@@ -7,8 +7,8 @@
     "start-ts": "ts-node index.ts",
     "start-tsc": "tsc && node build/index.js",
     "start-js": "node build/index.js",
-    "start-dev2": "tsc && nodemon --exec ts-node index.ts",
-    "start-dev": "nodemon  --inspect --watch 'src/**/*' -e ts --exec node  -r ts-node/register -r dotenv/config ./index.ts",
+    "start-dev2": "nodemon --exec ts-node index.ts",
+    "start-dev": "nodemon  --inspect --watch 'src/**/*' -e ts --exec node -r ts-node/register -r dotenv/config ./index.ts",
     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -20,7 +20,6 @@
   "license": "ISC",
   "dependencies": {
     "awilix": "^10.0.2",
-    "backend-section-remaster": "link:",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
@@ -62,6 +61,12 @@
     "preset": "ts-jest",
     "testEnvironment": "node",
     "collectCoverage": false,
+    "moduleNameMapper": {
+      "^@src/(.*)$": "<rootDir>/src/$1",
+      "^@models/(.*)$": "<rootDir>/src/models/$1",
+      "^@repositories/(.*)$": "<rootDir>/src/repositories/$1",
+      "^@services/(.*)$": "<rootDir>/src/services/$1"
+    },
     "collectCoverageFrom": [
       "src/**/*.ts",
       "!**/*.d.ts"
