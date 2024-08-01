@@ -1,0 +1,134 @@
+openapi: 3.0.0
+info:
+  title: Swagger ShareYourIdea
+  description: "Backend :: ShareYourIdea :: App"
+  version: 2.0
+  contact:
+    email: victor.hugo.roman.ruiz@gmail.com
+  license:
+    name: Apache 2.0.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://localhost:5000/v2/api
+    description: "servidor refactorizado a typescript"
+tags:
+  - name: user
+    description: Everything about users
+paths:
+  /user:
+    get:
+      tags:
+        - user
+      summary: Finds all users
+      description: ''
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user'
+        '400':
+          description: Invalid status value
+      parameters:
+        - name: pageNum
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+  /user/{id}:
+    get:
+      tags:
+        - user
+      summary: Find one user
+      description: ''
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: Invalid tag value
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: user Id
+    patch:
+      tags:
+        - user
+      summary: Update one user
+      description: ''
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: Invalid tag value
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: user Id
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Authorization header for JWT
+    delete:
+      tags:
+        - user
+      summary: Delete one user
+      description: ''
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: Invalid tag value
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: user Id
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Authorization header for JWT
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        username:
+          type: string
+        # password:
+        #   type: string

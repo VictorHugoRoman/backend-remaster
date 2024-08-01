@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import mcache from "memory-cache";
-import config from "../config";
+import { config } from "../config";
 const { CACHE_KEY } = config;
 
 export default (duration: number) => {

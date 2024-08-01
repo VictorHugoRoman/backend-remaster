@@ -14,7 +14,7 @@ import { CommentService, HomeService, IdeaService, UserService } from "../servic
 import { IAuthRepository, ICommentRepository, IIdeaRepository, IUserRepository } from "src/repositories/types";
 import { default as server } from ".";
 import endpoints from "../routes";
-import config from "../config";
+import { config } from "../config";
 import express from "express";
 
 const container: AwilixContainer = createContainer({

@@ -18,7 +18,6 @@ export default abstract class BaseController<T> {
 
   get = async (req: RPCustom<PPGetId>, res: Response): Promise<void> => {
     const { id } = req.params;
-    console.info("id: ", id);
     const entity = await this.baseRepository.getById(id);
     res.send(entity);
   };

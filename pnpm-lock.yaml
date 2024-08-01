@@ -11,9 +11,6 @@ importers:
       awilix:
         specifier: ^10.0.2
         version: 10.0.2
-      backend-section-remaster:
-        specifier: 'link:'
-        version: 'link:'
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -56,6 +53,9 @@ importers:
       winston:
         specifier: ^3.13.0
         version: 3.13.0
+      yaml:
+        specifier: ^2.5.0
+        version: 2.5.0
     devDependencies:
       '@jest/globals':
         specifier: ^29.7.0
@@ -2395,6 +2395,11 @@ packages:
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
+
+  yaml@2.5.0:
+    resolution: {integrity: sha512-2wWLbGbYDiSqqIKoPjar3MPgB94ErzCtrNE1FdqGuaO0pi2JGjmE8aW8TDZwzU7vuxcGRdL/4gPQwQ7hD5AMSw==}
+    engines: {node: '>= 14'}
+    hasBin: true
 
   yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
@@ -5510,6 +5515,8 @@ snapshots:
   y18n@5.0.8: {}
 
   yallist@3.1.1: {}
+
+  yaml@2.5.0: {}
 
   yargs-parser@21.1.1: {}
 

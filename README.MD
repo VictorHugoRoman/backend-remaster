@@ -13,16 +13,23 @@ Ideas Compartidas
     Un usuario debe estar autenticado para poder publica o votar una idea.
 
 - [Dependencias]
-    paquetes para desarrollo
+    desarrollo
         jest: unit test
         mockingoose: mockear metodos de mongoose
         nodemon: actualiza y corre los cambios automaticamente
-    paquetes para produccion:
+    produccion:
         awilix: inyeccion de dependencias
         express: servidor http
         mongoose: base de datos mongo
         swagger-ui-express: documentacion metodos http
-        
+        bcryptjs: encripta, desencripta contraseña
+        compression: comprime las peticiones http
+        cors: controla el acceso a recursos de tu servidor desde otros dominio.
+        helmet: añade cabeceras de seguridad a las respuestas HTTP.
+        jsonwebtoken: genera y verifica tokens JWT (JSON Web Tokens).
+        memory-cache: almacena datos en la memoria del servidor para no recalcular.
+        mongoose: acilita el uso de MongoDB.
+
 - [Comandos del Package.json](#)
     "start-ts": "ts-node index.ts"
         corre directamente la aplicacion con typescript
@@ -36,7 +43,8 @@ Ideas Compartidas
                     --require dotenv/config ./index.ts",
         ejecuta la app en modo debug, podemos acceder desde chrome con el link que proporciona nodemon
         en la terminal, o en chrome ejecutando la herramienta chrome://inspect/#devices, para vsCode
-        podemos configurar un launch.json.
+        podemos configurar un launch.json. Para reiniciar la aplicacion tenemos que escribir 'rs' en 
+        la terminal.
     "build": "tsc",
         compila la aplicacion
     "test": "jest",

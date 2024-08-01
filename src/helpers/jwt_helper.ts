@@ -1,5 +1,5 @@
 import { sign } from 'jsonwebtoken';
-import config  from '../config';
+import { config }  from '../config';
 import { IUserToEncode } from '../repositories/types';
 
 
