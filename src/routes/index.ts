@@ -21,7 +21,9 @@ export default function (
   //apiRoutes.use(express.urlencoded({ extended: true })); Middleware to handle form data
   apiRoutes.use(express.json()).use(cors()).use(helmet()).use(compression());
 
-  //apiRoutes.use("/home", HomeRoutes);
+  router.use("/api-docs", swaggerUI.serve);
+  router.use("/api-docs", swaggerUI.setup(getSwaggerJson()));
+
   apiRoutes.use("/idea", ideaRoutes);
   apiRoutes.use("/comment", commentRoutes);
   apiRoutes.use("/user", userRoutes);
@@ -36,7 +38,6 @@ export default function (
   router.use(notFoundMiddleware);
   router.use(errorMiddleware);
 
-  router.use("/api-docs", swaggerUI.serve);
-  router.use("/api-docs", swaggerUI.setup(getSwaggerJson()));
+  
   return router;
 }

@@ -1,0 +1,9 @@
+.vscode
+node_modules
+presentacion_del_proyecto
+tests
+.gitignore
+.env
+pnpm-lock.yaml
+README.MD
+
