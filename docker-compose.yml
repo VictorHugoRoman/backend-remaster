@@ -1,18 +1,33 @@
-version: "3"
-
+version: "3.8"
 services:
-  api:
+  api-ideas:
+    container_name: api-ideas
     build: .
+      # context: .
+      # dockerfile: Dockerfile
+    image: api-ideas:1.0
     depends_on:
-      - mongo
+      - mongo-ideas
     environment:
-      - PORT=5000
-      - MONGO_URI=mongodb://localhost:27018/ideasCompartidas?retryWrites=true&w=majority
-      - APPLICATION_NAME=Share Your Idea
-      - JWT_SECRET=myStrongSecret
-      - CACHE_KEY=myStrongPassword
-      - SWAGGER_DOC=swaggerPROD
+      NODE_ENV: production
+      PORT: 5000 
+      MONGO_URI: mongodb://mongo-ideas:27017/ideasCompartidas?retryWrites=true&w=majority 
+      APPLICATION_NAME: Compartir\ ideas 
+      JWT_SECRET: myStrongSecret
+      CACHE_KEY: myStrongkey
+      SWAGGER_DOC: swaggerPROD
     ports:
       - "5000:5000" 
-  mongo:
-    image: mongo
+    networks:
+      - network-api-ideas
+  mongo-ideas:
+    container_name: mongo-ideas
+    image: mongo:3.6.5-jessie
+    ports:
+      - 27017:27017 
+    networks:
+      - network-api-ideas
+networks:
+  network-api-ideas:
+    name: network-api-ideas
+    driver: bridge
