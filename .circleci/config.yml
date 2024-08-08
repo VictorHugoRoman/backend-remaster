@@ -43,7 +43,7 @@ workflows:
           # environment: stg
           context:
             - docker-secrets
-          require:
+          requires:
             - test-app
       - deploy-to-heroku:
           # environment: stg
