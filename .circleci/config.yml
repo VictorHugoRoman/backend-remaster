@@ -16,13 +16,17 @@ jobs:
       - run:
           name: nodejs version
           command: node --version
-      - node/install-packages
       - run:
-          name: testing
+          name: install pnpm
+          command: npm install -g pnpm 
+      - run:
+          name: install dependencies
+          command: pnpm install
+      - run:
+          name: testing api rest
           command: npm run test
   create-container:
-    docker:
-      - image: cimg/base:stable
+    executor: docker/machine
     steps:
       - checkout
       - run: |
@@ -30,7 +34,7 @@ jobs:
       - docker/build:
           image: $DOCKER_USER/api-ideas
       - docker/push:
-          image: $DOCKER_USER/api-invoice
+          image: $DOCKER_USER/api-ideas
 
 workflows:
   deploy-api-ideas:
@@ -40,17 +44,17 @@ workflows:
             branches:
               only: master-stg
       - create-container:
-          environment: stg
-          context:
-            - docker-secrets
-          require:
-            - test-app
-      - deploy-to-heroku:
-          environment: stg
+          # environment: stg
           context:
             - docker-secrets
           requires:
-            - create-container
+            - test-app
+      # - deploy-to-heroku:
+      #     # environment: stg
+      #     context:
+      #       - docker-secrets
+      #     requires:
+      #       - create-container
       - hold-deploy-prod:
           type: approval
           filters:
