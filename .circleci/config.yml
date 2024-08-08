@@ -16,9 +16,14 @@ jobs:
       - run:
           name: nodejs version
           command: node --version
-      - node/install-packages
       - run:
-          name: testing
+          name: install pnpm
+          command: npm install -g pnpm 
+      - run:
+          name: install dependencies
+          command: pnpm install
+      - run:
+          name: testing api rest
           command: npm run test
   create-container:
     docker:
