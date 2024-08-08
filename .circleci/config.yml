@@ -11,15 +11,15 @@ jobs:
     steps:
       - checkout
       - node/install:
-        install-yarn: false
-        node-version: '20.11.1'
+          install-yarn: false
+          node-version: '20.11.1'
       - run:
-        name: nodejs version
-        command: node --version
+          name: nodejs version
+          command: node --version
       - node/install-packages
-      - run: 
-        name: testing
-        command: npm run test
+      - run:
+          name: testing
+          command: npm run test
   create-container:
     docker:
       - image: cimg/base:stable
@@ -28,23 +28,23 @@ jobs:
       - run: |
           echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - docker/build:
-        image: $DOCKER_USER/api-ideas
+          image: $DOCKER_USER/api-ideas
       - docker/push:
-        image: $DOCKER_USER/api-invoice
-  
+          image: $DOCKER_USER/api-invoice
+
 workflows:
   deploy-api-ideas:
     jobs:
       - test-app:
-        filters:
-          branches:
-            only: master-stg
+          filters:
+            branches:
+              only: master-stg
       - create-container:
-        environment: stg
-        context:
-          - docker-secrets
-        require:
-          - test-app
+          environment: stg
+          context:
+            - docker-secrets
+          require:
+            - test-app
       - deploy-to-heroku:
           environment: stg
           context:
