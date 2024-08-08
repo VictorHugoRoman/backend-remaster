@@ -34,7 +34,7 @@ jobs:
       - docker/build:
           image: $DOCKER_USER/api-ideas
       - docker/push:
-          image: $DOCKER_USER/api-invoice
+          image: $DOCKER_USER/api-ideas
 
 workflows:
   deploy-api-ideas:
