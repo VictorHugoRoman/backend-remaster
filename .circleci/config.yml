@@ -26,8 +26,7 @@ jobs:
           name: testing api rest
           command: npm run test
   create-container:
-    docker:
-      - image: cimg/base:stable
+    executor: docker/machine
     steps:
       - checkout
       - run: |
