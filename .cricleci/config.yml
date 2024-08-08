@@ -1,0 +1,64 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.2.0
+  docker: circleci/docker@2.6.0
+
+jobs:
+  test-app:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - node/install:
+        install-yarn: false
+        node-version: '20.11.1'
+      - run:
+        name: nodejs version
+        command: node --version
+      - node/install-packages
+      - run: 
+        name: testing
+        command: npm run test
+  create-container:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run: |
+          echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      - docker/build:
+        image: $DOCKER_USER/api-ideas
+      - docker/push:
+        image: $DOCKER_USER/api-invoice
+  
+workflows:
+  deploy-api-ideas:
+    jobs:
+      - test-app:
+        filters:
+          branches:
+            only: master-stg
+      - create-container:
+        environment: stg
+        context:
+          - docker-secrets
+        require:
+          - test-app
+      - deploy-to-heroku:
+          environment: stg
+          context:
+            - docker-secrets
+          requires:
+            - create-container
+      - hold-deploy-prod:
+          type: approval
+          filters:
+            branches:
+              only: master
+      # - deploy-to-heroku:
+      #     environment: prod
+      #     context:
+      #       - docker-secrets
+      #     requires:
+      #       - hold-deploy-prod
