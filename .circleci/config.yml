@@ -45,12 +45,12 @@ workflows:
             - docker-secrets
           requires:
             - test-app
-      - deploy-to-heroku:
-          # environment: stg
-          context:
-            - docker-secrets
-          requires:
-            - create-container
+      # - deploy-to-heroku:
+      #     # environment: stg
+      #     context:
+      #       - docker-secrets
+      #     requires:
+      #       - create-container
       - hold-deploy-prod:
           type: approval
           filters:
