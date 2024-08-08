@@ -40,13 +40,13 @@ workflows:
             branches:
               only: master-stg
       - create-container:
-          environment: stg
+          # environment: stg
           context:
             - docker-secrets
           require:
             - test-app
       - deploy-to-heroku:
-          environment: stg
+          # environment: stg
           context:
             - docker-secrets
           requires:
