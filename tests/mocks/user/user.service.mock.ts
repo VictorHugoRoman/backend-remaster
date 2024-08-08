@@ -2,7 +2,7 @@ import { jest } from '@jest/globals';
 import { IUser, UserDocument } from 'src/models';
 import { MockFunction } from '../type_mock_function';
 
-//##type MockFunction<T extends (...args: any) => any> = jest.MockedFunction<T>;
+//type MockFunction<T extends (...args: any) => any> = jest.MockedFunction<T>;
 
 
 export interface MockUserService<T> {
