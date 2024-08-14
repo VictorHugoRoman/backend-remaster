@@ -1,3 +1,6 @@
+# i8virfm9ubb9ny9uaxii6wty5pv2q11zgxheufli6suflgtyb2usxmghcaz4ib41
+# jz248xwzxepgyf9t7n9iuyvqiqzbv8dmdpf3hi4alqz8enkuek03xwtyvt2t4jxq -- personal
+# 27wwhznqbl7cfg9hioafoxi3ktqs26zhatn32ekvy2iwa46cneqj08dcolm3rwwc -- api
 version: 2.1
 
 orbs:
@@ -24,17 +27,40 @@ jobs:
           command: pnpm install
       - run:
           name: testing api rest
-          command: npm run test
+          command: pnpm run test
   create-container:
+    parameters:
+      environment:
+        default: string
+        type: string
     executor: docker/machine
     steps:
       - checkout
-      - run: |
-          echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-      - docker/build:
-          image: $DOCKER_USER/api-ideas
+      - run:
+          name: Set environment variables
+          command: |
+            if [ "${{ parameters.environment }}" = "stg" ]; then
+              echo "export URL_MONGO=$MONGO_URI" >> $BASH_ENV
+            else
+              echo "export URL_MONGO=$MONGO_URI_PROD" >> $BASH_ENV
+            fi
+      - run:
+          name: show keys secrets
+          command: |
+            echo $MONGO_USER
+            echo $MONGO_PASS
+            echo $URL_MONGO 
+      - run:
+          name: Build Docker image
+          command: |
+            docker build \
+              --build-arg UM=$MONGO_USER \
+              --build-arg PM=$MONGO_PASS \
+              --build-arg UriM=$URL_MONGO \
+              -t $DOCKER_USER/api-ideas .
       - docker/push:
           image: $DOCKER_USER/api-ideas
+# end jobs
 
 workflows:
   deploy-api-ideas:
@@ -44,7 +70,7 @@ workflows:
             branches:
               only: master-stg
       - create-container:
-          # environment: stg
+          environment: stg
           context:
             - docker-secrets
           requires:
@@ -60,6 +86,12 @@ workflows:
           filters:
             branches:
               only: master
+      - create-container:
+          environment: prod
+          context:
+            - docker-secrets
+          requires:
+            - hold-deploy-prod
       # - deploy-to-heroku:
       #     environment: prod
       #     context:
