@@ -47,17 +47,16 @@ jobs:
       - run:
           name: show keys secrets
           command: |
-            echo $MONGO_USER
-            echo $MONGO_PASS
-            echo $URL_MONGO 
-      - run:
+            echo ${MONGO_USER}
+            echo ${MONGO_PASS}
+            echo ${URL_MONGO}
+      - docker/build:
           name: Build Docker image
-          command: |
-            docker build \
-              --build-arg UM=$MONGO_USER \
-              --build-arg PM=$MONGO_PASS \
-              --build-arg UriM=$URL_MONGO \
-              -t $DOCKER_USER/api-ideas .
+          image: $DOCKER_USER/api-ideas
+          extra_build_args: |
+            --build-arg UM=$MONGO_USER \
+            --build-arg PM=$MONGO_PASS \
+            --build-arg UriM=$URL_MONGO
       - docker/push:
           image: $DOCKER_USER/api-ideas
 # end jobs
