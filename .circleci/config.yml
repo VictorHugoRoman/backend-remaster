@@ -46,10 +46,9 @@ jobs:
             fi
       - run:
           name: show keys secrets
-          command: |
-            echo ${MONGO_USER}
-            echo ${MONGO_PASS}
-            echo ${URL_MONGO}
+          command: echo ${URL_MONGO}
+      - run: |
+          echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - docker/build:
           image: $DOCKER_USER/api-ideas
           extra_build_args: |
