@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Set environment variables
           command: |
-            if [ "${{ parameters.environment }}" = "stg" ]; then
+            if [ << parameters.environment >> = "stg" ]; then
               echo "export URL_MONGO=$MONGO_URI" >> $BASH_ENV
             else
               echo "export URL_MONGO=$MONGO_URI_PROD" >> $BASH_ENV
