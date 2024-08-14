@@ -51,7 +51,6 @@ jobs:
             echo ${MONGO_PASS}
             echo ${URL_MONGO}
       - docker/build:
-          name: Build Docker image
           image: $DOCKER_USER/api-ideas
           extra_build_args: |
             --build-arg UM=$MONGO_USER \
