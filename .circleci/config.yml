@@ -1,6 +1,7 @@
 # i8virfm9ubb9ny9uaxii6wty5pv2q11zgxheufli6suflgtyb2usxmghcaz4ib41
 # jz248xwzxepgyf9t7n9iuyvqiqzbv8dmdpf3hi4alqz8enkuek03xwtyvt2t4jxq -- personal
 # 27wwhznqbl7cfg9hioafoxi3ktqs26zhatn32ekvy2iwa46cneqj08dcolm3rwwc -- api
+# con $CIRCLE_TAG puedo manipular las versiones, ya que es la etiqueta de github
 version: 2.1
 
 orbs:
@@ -51,7 +52,7 @@ jobs:
       - run: |
           echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - docker/build:
-          image: $DOCKER_USER/api-ideas
+          image: $DOCKER_USER/api-ideas:$(echo $CIRCLE_SHA1 | cut -c1-7)
           extra_build_args: |
             --build-arg UM=$MONGO_USER \
             --build-arg PM=$MONGO_PASS \
@@ -59,7 +60,24 @@ jobs:
             --build-arg DB=$DB \
             --build-arg APPNAME=$APPNAME \
       - docker/push:
-          image: $DOCKER_USER/api-ideas
+          image: $DOCKER_USER/api-ideas:$(echo $CIRCLE_SHA1 | cut -c1-7)
+  deploy-to-koyeb:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: "install koyeb"
+          command: |
+            sudo apt update
+            sudo apt install -y curl wget
+            wget https://github.com/koyeb/koyeb-cli/releases/download/v4.3.0/koyeb-cli_4.3.0_linux_amd64.tar.gz
+            tar -xzf koyeb-cli_4.3.0_linux_amd64.tar.gz
+            sudo mv koyeb /usr/local/bin/
+            koyeb --version
+      - run:
+          name: "deploy api"
+          command: |
+            koyeb service create api-ideas --app app-backend-udemy --docker docker.io/19910209/api-ideas:$(echo $CIRCLE_SHA1 | cut -c1-7) --token jz248xwzxepgyf9t7n9iuyvqiqzbv8dmdpf3hi4alqz8enkuek03xwtyvt2t4jxq --port 80 --region was --autoscaling-average-cpu 0 --autoscaling-average-mem 0 --autoscaling-concurrent-requests 0 --autoscaling-requests-per-second 0 --autoscaling-requests-response-time 0 --instance-type free
 # end jobs
 
 workflows:
