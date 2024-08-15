@@ -48,14 +48,14 @@ jobs:
       - run:
           name: Variables
           command: |
-            COMMIT_HASH=$CIRCLE_SHA1
+            COMMIT_HASH=$(echo $CIRCLE_SHA1 | cut -c1-7)
             echo "valor DB: $DB"
             echo "valor commit: $COMMIT_HASH"
-            echo "valor cut commit: $(echo $COMMIT_HASH | cut -c1-7)"
       - run: |
           echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - docker/build:
-          image: $DOCKER_USER/api-ideas:$COMMIT_HASH
+          image: $DOCKER_USER/api-ideas
+          tag: $COMMIT_HASH
           extra_build_args: |
             --build-arg UM=$MONGO_USER \
             --build-arg PM=$MONGO_PASS \
