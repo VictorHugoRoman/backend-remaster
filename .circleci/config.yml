@@ -63,7 +63,8 @@ jobs:
             --build-arg DB=$DB \
             --build-arg APPNAME=$APPNAME \
       - docker/push:
-          image: $DOCKER_USER/api-ideas:$COMMIT_HASH
+          image: $DOCKER_USER/api-ideas
+          tag: $COMMIT_HASH
   deploy-to-koyeb:
     docker:
       - image: cimg/base:stable
@@ -97,12 +98,12 @@ workflows:
             - mongo-secrets
           requires:
             - test-app
-      # - deploy-to-heroku:
-      #     # environment: stg
-      #     context:
-      #       - docker-secrets
-      #     requires:
-      #       - create-container
+      - deploy-to-koyeb:
+          # environment: stg
+          context:
+            - docker-secrets
+          requires:
+            - create-container
       - hold-deploy-prod:
           type: approval
           filters:
