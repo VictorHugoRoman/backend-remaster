@@ -46,13 +46,16 @@ jobs:
               echo "export DB=$BDPROD" >> $BASH_ENV
             fi
       - run:
-          name: Variable DB
+          name: Variables
           command: |
-            echo "valor: $DB"
+            COMMIT_HASH=$CIRCLE_SHA1
+            echo "valor DB: $DB"
+            echo "valor commit: $COMMIT_HASH"
+            echo "valor cut commit: $(echo $COMMIT_HASH | cut -c1-7)"
       - run: |
           echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - docker/build:
-          image: $DOCKER_USER/api-ideas:$(echo $CIRCLE_SHA1 | cut -c1-7)
+          image: $DOCKER_USER/api-ideas:$COMMIT_HASH
           extra_build_args: |
             --build-arg UM=$MONGO_USER \
             --build-arg PM=$MONGO_PASS \
@@ -60,7 +63,7 @@ jobs:
             --build-arg DB=$DB \
             --build-arg APPNAME=$APPNAME \
       - docker/push:
-          image: $DOCKER_USER/api-ideas:$(echo $CIRCLE_SHA1 | cut -c1-7)
+          image: $DOCKER_USER/api-ideas:$COMMIT_HASH
   deploy-to-koyeb:
     docker:
       - image: cimg/base:stable
@@ -77,7 +80,7 @@ jobs:
       - run:
           name: "deploy api"
           command: |
-            koyeb service create api-ideas --app app-backend-udemy --docker docker.io/19910209/api-ideas:$(echo $CIRCLE_SHA1 | cut -c1-7) --token jz248xwzxepgyf9t7n9iuyvqiqzbv8dmdpf3hi4alqz8enkuek03xwtyvt2t4jxq --port 80 --region was --autoscaling-average-cpu 0 --autoscaling-average-mem 0 --autoscaling-concurrent-requests 0 --autoscaling-requests-per-second 0 --autoscaling-requests-response-time 0 --instance-type free
+            koyeb service create api-ideas --app app-backend-udemy --docker docker.io/19910209/api-ideas:$COMMIT_HASH --token jz248xwzxepgyf9t7n9iuyvqiqzbv8dmdpf3hi4alqz8enkuek03xwtyvt2t4jxq --port 80 --region was --autoscaling-average-cpu 0 --autoscaling-average-mem 0 --autoscaling-concurrent-requests 0 --autoscaling-requests-per-second 0 --autoscaling-requests-response-time 0 --instance-type free
 # end jobs
 
 workflows:
