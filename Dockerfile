@@ -9,15 +9,17 @@ FROM node:lts-slim
 WORKDIR /app
 ARG UM=""
 ARG PM=""
-ARG UriM=""
+ARG DNSM=""
+ARG DB=""
+ARG APPNAME=""
+
 COPY --from=building /app/build ./
 COPY --from=building /app/src/config/swagger/swaggerPROD.yaml ./src/config/swagger/swaggerPROD.yaml
 COPY --from=building /app/package.json ./package.json
 ENV NODE_ENV=production
 ENV PORT=5000
-ENV USER_MONGO=${UM}
-ENV PASS_MONGO=${PM}
-ENV MONGO_URI=${UriM}
+ENV MONGO_URI=mongodb+srv://${UM}:${PM}@${DNSM}/$DB?retryWrites=true&w=majority&appName=$APPNAME
+RUN echo "mongo uri ${MONGO_URI}" 
 ENV APPLICATION_NAME=Compartir\ ideas 
 ENV JWT_SECRET=myStrongSecret
 ENV CACHE_KEY=myStrongkey
