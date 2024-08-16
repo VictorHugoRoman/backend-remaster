@@ -92,6 +92,7 @@ workflows:
             branches:
               only: master-stg
       - create-container:
+          name: create-container-stg
           environment: stg
           context:
             - docker-secrets
@@ -103,13 +104,14 @@ workflows:
           context:
             - docker-secrets
           requires:
-            - create-container
+            - create-container-stg
       - hold-deploy-prod:
           type: approval
           filters:
             branches:
               only: master
       - create-container:
+          name: create-container-prod
           environment: prod
           context:
             - docker-secrets
