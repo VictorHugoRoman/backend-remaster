@@ -48,12 +48,12 @@ jobs:
       - run:
           name: Variables
           command: |
-            COMMIT_HASH=$(echo $CIRCLE_SHA1 | cut -c1-7)
-            echo "valor DB: $DB"
+            echo "export COMMIT_HASH=$(echo $CIRCLE_SHA1 | cut -c1-7)" >> $BASH_ENV
             echo "valor commit: $COMMIT_HASH"
-      - run: |
-          echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-      - docker/build:
+      - run:
+          name: Login Docker
+          command: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      -  :
           image: $DOCKER_USER/api-ideas
           tag: $COMMIT_HASH
           extra_build_args: |
@@ -77,7 +77,7 @@ jobs:
             wget https://github.com/koyeb/koyeb-cli/releases/download/v4.3.0/koyeb-cli_4.3.0_linux_amd64.tar.gz
             tar -xzf koyeb-cli_4.3.0_linux_amd64.tar.gz
             sudo mv koyeb /usr/local/bin/
-            koyeb --version
+            koyeb version
       - run:
           name: "deploy api"
           command: |
