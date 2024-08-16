@@ -71,6 +71,12 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
+          name: Variables
+          command: |
+            COMMIT_HASH=$(echo $CIRCLE_SHA1 | cut -c1-7)
+            echo "export COMMIT_HASH=$COMMIT_HASH" >> $BASH_ENV
+            echo "valor commit: $COMMIT_HASH"
+      - run:
           name: "install koyeb"
           command: |
             sudo apt update
