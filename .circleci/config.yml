@@ -48,7 +48,8 @@ jobs:
       - run:
           name: Variables
           command: |
-            echo "export COMMIT_HASH=$(echo $CIRCLE_SHA1 | cut -c1-7)" >> $BASH_ENV
+            COMMIT_HASH=$(echo $CIRCLE_SHA1 | cut -c1-7)
+            echo "export COMMIT_HASH=$COMMIT_HASH" >> $BASH_ENV
             echo "valor commit: $COMMIT_HASH"
       - run:
           name: Login Docker
