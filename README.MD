@@ -1,68 +1,41 @@
-# Nombre del Proyecto
-Ideas Compartidas
+# Ideas Compartidas
 
-## Table of Contents
+backend para un sistema q permita a usuarios compartir sus ideas innovadoras
+con una comunidad q servira como juez para ponerla en marcha.
+Cada idea recibira comentarios, votos positivos y negativos.
+Un usuario debe estar autenticado para poder publica o votar una idea.
+
+## Dependencias
 
 - [Instalación]
-    pnpm install
+pnpm install
 
-- [Uso]
-    backend para un sistema q permita a usuarios compartir sus ideas innovadoras
-    con una comunidad q servira como juez para ponerla en marcha.
-    Cada idea recibira comentarios, votos positivos y negativos.
-    Un usuario debe estar autenticado para poder publica o votar una idea.
+dev
+- [jest: unit test](https://jestjs.io/docs/getting-started)
+- [mockingoose: mocking models](https://www.npmjs.com/package/mockingoose)
+- [nodemon: automatically restarting app](https://www.npmjs.com/package/nodemon)
+    
+prod
+- [awilix: Dependency Injection](https://www.npmjs.com/package/awilix)
+- [express: http server](https://www.npmjs.com/package/express)
+- [mongoose: mongo data base](https://mongoosejs.com/docs/typescript.html)
+- [swagger-ui-express: generated API docs](https://www.npmjs.com/package/swagger-ui-express)
+- [bcryptjs: crypt password](https://www.npmjs.com/package/bcryptjs)
+- [bcryptjs: crypt password](https://www.npmjs.com/package/bcryptjs)
+- [compression:  compression http request](https://www.npmjs.com/package/compression)
+- [cors: enable CORS with various options](https://www.npmjs.com/package/cors)
+- [helmet: add security headers to HTTP responses](https://www.npmjs.com/package/helmet)
+- [jsonwebtoken: generates and verifies JWT tokens](https://www.npmjs.com/package/jsonwebtoken)
+- [memory-cache: stores data in server memory so as not to recalculate](https://www.npmjs.com/package/memory-cache)
 
-- [Dependencias]
-    desarrollo
-        jest: unit test
-        mockingoose: mockear metodos de mongoose
-        nodemon: actualiza y corre los cambios automaticamente
-    produccion:
-        awilix: inyeccion de dependencias
-        express: servidor http
-        mongoose: base de datos mongo
-        swagger-ui-express: documentacion metodos http
-        bcryptjs: encripta, desencripta contraseña
-        compression: comprime las peticiones http
-        cors: controla el acceso a recursos de tu servidor desde otros dominio.
-        helmet: añade cabeceras de seguridad a las respuestas HTTP.
-        jsonwebtoken: genera y verifica tokens JWT (JSON Web Tokens).
-        memory-cache: almacena datos en la memoria del servidor para no recalcular.
-        mongoose: acilita el uso de MongoDB.
+run debug
+start-dev: "nodemon  --inspect --watch 'src/**/*' -e ts --exec node -r ts-node/register -r dotenv/config ./index.ts",
+    ejecuta la app en modo debug, podemos acceder desde chrome con el link que proporciona nodemon
+    en la terminal, o en chrome ejecutando la herramienta chrome://inspect/#devices, para vsCode
+    podemos configurar un launch.json. Para reiniciar la aplicacion tenemos que escribir 'rs' en 
+    la terminal.
 
-- [Comandos del Package.json](#)
-    "start-ts": "ts-node index.ts"
-        corre directamente la aplicacion con typescript
-    "start-tsc": "tsc && node build/index.js"
-        compila typescript y ejecuta el compilado javascript
-    "start-js": "node build/index.js"
-        inicia la aplicacion mediante una compilacion
-    "start-dev2": "nodemon --exec ts-node index.ts"
-        ejecuta la aplicacion con nodemon para auto actualizar el servidor con los nuevos cambios usando typescript
-    "start-dev": "nodemon  --inspect --watch 'src/**/*' --ext ts --exec node --require ts-node/register 
-                    --require dotenv/config ./index.ts",
-        ejecuta la app en modo debug, podemos acceder desde chrome con el link que proporciona nodemon
-        en la terminal, o en chrome ejecutando la herramienta chrome://inspect/#devices, para vsCode
-        podemos configurar un launch.json. Para reiniciar la aplicacion tenemos que escribir 'rs' en 
-        la terminal.
-    "build": "tsc",
-        compila la aplicacion
-    "test": "jest",
-        ejecuta las pruebas unitarias
-    "test:watch": "jest --watch",
-        ejecuta las pruebas y luego espera cambios en el codigo
-    "test:coverage": "jest --coverage",
-        genera un informe de cobertura, ayuda a identificar áreas del código que podrían no estar 
-        suficientemente probadas
-    "test:update": "jest --updateSnapshot"
-        almacena el estado de los tests en un archivo de snapshot. almacenando la representación de 
-        los datos que se espera que permanezcan constantes entre ejecuciones de pruebas.
 
-## Instalación
-
-Para instalar el proyecto, clona el repositorio y ejecuta el comando de instalación:
-
-```bash
 git clone https://github.com/usuario/repo.git
 cd repo
 pnpm install
