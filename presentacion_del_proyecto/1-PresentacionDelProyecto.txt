@@ -1,3 +1,9 @@
 Este proyecto se desarrolló a partir de una version con javascript.
 Anteriormente se desplegaba con travis y heroku se actualizó con las
 tecnologias de circleci y koyeb.
+
+https://app.circleci.com/projects/organizations/circleci%2FNii5zzUcK9rxg6aFCcUBco/
+https://hub.docker.com/repository/docker/19910209/api-ideas/general
+https://cloud.mongodb.com/v2/66b6772d749eb57aecbb06f6#/overview
+https://app.koyeb.com/
+https://app-backend-udemy-vickmans-12d86e99.koyeb.app/v2/api/auth/signup
