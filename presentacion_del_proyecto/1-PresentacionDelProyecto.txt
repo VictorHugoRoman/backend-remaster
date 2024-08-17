@@ -1,7 +1,3 @@
-
-Se solicita un sistema q permita a usuarios compartir sus ideas innovadoras
-con una comunidad q servira como juez para ponerla en marcha.
-Cada idea recibira comentarios, votos positivos y negativos.
-Un usuario debe estar autenticado para poder publica o votar una idea.
-
-Palabras Clave: Usuarios, Ideas, Comentarios.
+Este proyecto se desarrolló a partir de una version con javascript.
+Anteriormente se desplegaba con travis y heroku se actualizó con las
+tecnologias de circleci y koyeb.

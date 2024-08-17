@@ -1,7 +1,3 @@
-# i8virfm9ubb9ny9uaxii6wty5pv2q11zgxheufli6suflgtyb2usxmghcaz4ib41
-# jz248xwzxepgyf9t7n9iuyvqiqzbv8dmdpf3hi4alqz8enkuek03xwtyvt2t4jxq -- personal
-# 27wwhznqbl7cfg9hioafoxi3ktqs26zhatn32ekvy2iwa46cneqj08dcolm3rwwc -- api
-# con $CIRCLE_TAG puedo manipular las versiones, ya que es la etiqueta de github
 version: 2.1
 
 orbs:
@@ -46,7 +42,7 @@ jobs:
               echo "export DB=$BDPROD" >> $BASH_ENV
             fi
       - run:
-          name: Variables
+          name: Create tag image docker
           command: |
             COMMIT_HASH=$(echo $CIRCLE_SHA1 | cut -c1-7)
             echo "export COMMIT_HASH=$COMMIT_HASH" >> $BASH_ENV
@@ -71,7 +67,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
-          name: Variables
+          name: Create tag image docker
           command: |
             COMMIT_HASH=$(echo $CIRCLE_SHA1 | cut -c1-7)
             echo "export COMMIT_HASH=$COMMIT_HASH" >> $BASH_ENV
@@ -88,7 +84,7 @@ jobs:
       - run:
           name: "deploy api"
           command: |
-            koyeb service create api-ideas --app app-backend-udemy --docker docker.io/19910209/api-ideas:$COMMIT_HASH --token jz248xwzxepgyf9t7n9iuyvqiqzbv8dmdpf3hi4alqz8enkuek03xwtyvt2t4jxq --port 80 --region was --autoscaling-average-cpu 0 --autoscaling-average-mem 0 --autoscaling-concurrent-requests 0 --autoscaling-requests-per-second 0 --autoscaling-requests-response-time 0 --instance-type free
+            koyeb service create api-ideas --app app-backend-udemy --docker docker.io/19910209/api-ideas:$COMMIT_HASH --token $KOYEB_TOKEN --port 80 --region was --autoscaling-average-cpu 0 --autoscaling-average-mem 0 --autoscaling-concurrent-requests 0 --autoscaling-requests-per-second 0 --autoscaling-requests-response-time 0 --instance-type free
 # end jobs
 
 workflows:

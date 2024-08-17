@@ -19,7 +19,6 @@ COPY --from=building /app/package.json ./package.json
 ENV NODE_ENV=production
 ENV PORT=5000
 ENV MONGO_URI=mongodb+srv://${UM}:${PM}@${DNSM}/$DB?retryWrites=true&w=majority&appName=$APPNAME
-RUN echo "mongo uri ${MONGO_URI}" 
 ENV APPLICATION_NAME=Compartir\ ideas 
 ENV JWT_SECRET=myStrongSecret
 ENV CACHE_KEY=myStrongkey
