@@ -28,7 +28,8 @@ prod
 - [jsonwebtoken: generates and verifies JWT tokens](https://www.npmjs.com/package/jsonwebtoken)
 - [memory-cache: stores data in server memory so as not to recalculate](https://www.npmjs.com/package/memory-cache)
 
-run debug
+run debug:
+
 start-dev: "nodemon  --inspect --watch 'src/**/*' -e ts --exec node -r ts-node/register -r dotenv/config ./index.ts",
     ejecuta la app en modo debug, podemos acceder desde chrome con el link que proporciona nodemon
     en la terminal, o en chrome ejecutando la herramienta chrome://inspect/#devices, para vsCode
