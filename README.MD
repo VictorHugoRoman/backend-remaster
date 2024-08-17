@@ -37,6 +37,6 @@ start-dev: "nodemon  --inspect --watch 'src/**/*' -e ts --exec node -r ts-node/r
     la terminal.
 
 
-git clone https://github.com/usuario/repo.git
+git clone https://github.com/VictorHugoRoman/backend-remaster
 cd repo
 pnpm install
