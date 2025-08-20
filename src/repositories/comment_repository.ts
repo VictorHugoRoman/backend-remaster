@@ -26,13 +26,22 @@ export class CommentRepository
     return comments;
   }
 
-  async create(comment: IComment, ideaId: string, authorId: string): Promise<IdeaDocument | null> {
+  async create(
+    comment: IComment,
+    ideaId: string,
+    authorId: string
+  ): Promise<IdeaDocument | null> {
     const author = await this.userService.getById(authorId);
-    if (!author) throw new HttpError("author does not exist", HttpStatus.BAD_REQUEST);
+    if (!author)
+      throw new HttpError("author does not exist", HttpStatus.BAD_REQUEST);
     const idea = await this.ideaService.getById(ideaId);
     if (!idea) throw new HttpError("idea does not exist", HttpStatus.NOT_FOUND);
-    const createdComment = await this.commentService.createEntity(comment as CommentDocument);
+    const createdComment = await this.commentService.createEntity(
+      comment as CommentDocument
+    );
     idea.comments.push(createdComment);
-    return await this.ideaService.updateEntity(ideaId, {comments: idea.comments,});
+    return await this.ideaService.updateEntity(ideaId, {
+      comments: idea.comments,
+    });
   }
 }
