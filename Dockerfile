@@ -2,7 +2,7 @@ FROM node:lts-alpine3.18 AS building
 RUN npm install -g pnpm
 WORKDIR /app
 COPY . .
-RUN pnpm install
+RUN pnpm install --ignore-scripts
 RUN pnpm build
 
 FROM node:lts-slim
