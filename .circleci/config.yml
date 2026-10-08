@@ -50,7 +50,7 @@ jobs:
       - run:
           name: Login Docker
           command: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-      - docker/build :
+      - docker/build:
           image: $DOCKER_USER/api-ideas
           tag: $COMMIT_HASH
           extra_build_args: |
@@ -108,18 +108,21 @@ workflows:
             - docker-secrets
           requires:
             - create-container-stg
-      - hold-deploy-prod:
-          type: approval
-          filters:
-            branches:
-              only: master
-      - create-container:
-          name: create-container-prod
-          environment: prod
-          context:
-            - docker-secrets
-          requires:
-            - hold-deploy-prod
+      #- hold-deploy-prod: descomentar 
+      #    type: approval
+      #    filters:
+      #      branches:
+      #        only: master
+      #- create-container:
+      #    name: create-container-prod
+      #    environment: prod
+      #    context:
+      #      - docker-secrets
+      #    requires:
+      #      - hold-deploy-prod
+      
+      
+      
       # - deploy-to-heroku:
       #     environment: prod
       #     context:
