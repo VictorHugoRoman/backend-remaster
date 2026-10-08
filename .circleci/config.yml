@@ -84,7 +84,7 @@ jobs:
       - run:
           name: "deploy api"
           command: |
-            koyeb service create api-ideas --app app-backend-udemy --docker docker.io/19910209/api-ideas:$COMMIT_HASH --token $KOYEB_TOKEN --port 80 --region was --autoscaling-average-cpu 0 --autoscaling-average-mem 0 --autoscaling-concurrent-requests 0 --autoscaling-requests-per-second 0 --autoscaling-requests-response-time 0 --instance-type free
+            koyeb service create api-ideas-2 --app app-backend-udemy --docker docker.io/19910209/api-ideas:$COMMIT_HASH --token $KOYEB_TOKEN --port 80 --region was --autoscaling-average-cpu 0 --autoscaling-average-mem 0 --autoscaling-concurrent-requests 0 --autoscaling-requests-per-second 0 --autoscaling-requests-response-time 0 --instance-type free
 # end jobs
 
 workflows:
